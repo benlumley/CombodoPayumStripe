@@ -1,3 +1,12 @@
+# What's different in this (benlumley) fork
+
+2 things:
+- Subscriptions
+- I needed compat with php7.1; i believe it'll also be 7.0 as well.
+
+If you need either of those, this fork might be what you need.
+
+
 # Payum gateway : Combodo/StripeV3
 
 This is an **unofficial** & :construction: Beta :construction: Payum gateway providing a stripe integration compatible with the [Strong
