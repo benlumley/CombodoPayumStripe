@@ -27,9 +27,9 @@ class StatusAction implements ActionInterface
             return;
         }
 
+
         if (false == $model['status'] && false == $model['card']) {
             $request->markNew();
-
             return;
         }
 

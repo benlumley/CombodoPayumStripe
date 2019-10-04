@@ -16,6 +16,7 @@ use Combodo\StripeV3\Action\RefundAction;
 use Combodo\StripeV3\Action\StatusAction;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
+use Loai\SyliusBundle\Action\Api\CreatePlanAction;
 
 class StripeV3GatewayFactory extends GatewayFactory
 {
@@ -60,12 +61,12 @@ class StripeV3GatewayFactory extends GatewayFactory
 //  this comment block consist in action present in the legacy stripe "v2" that I choose not to implement because they are out of the scope I need (ie: I do not handle credit cards)
 //            'payum.action.get_credit_card_token' => new GetCreditCardTokenAction(),       // stripe specific action
 //            'payum.action.create_customer' => new CreateCustomerAction(),                 // stripe specific action
-//            'payum.action.create_plan' => new CreatePlanAction(),                         // stripe specific action
+            'payum.action.create_plan' => new CreatePlanAction(),                         // stripe specific action
 //            'payum.action.create_subscription' => new CreateSubscriptionAction(),         // stripe specific action
 //            'payum.extension.create_customer' => new CreateCustomerExtension(),           // stripe specific action
 //            'payum.action.create_charge' => new CreateChargeAction(),                     // stripe specific action
 //  end of the comment block
-        
+
         ]);
 
         if (false == $config['payum.api']) {

@@ -13,8 +13,8 @@ use Stripe\Event;
 class handleCheckoutCompletedEvent
 {
     const TOKEN_CAN_BE_INVALIDATED = true;
-    const TOKEN_MUST_BE_KEPT = false; 
-    
+    const TOKEN_MUST_BE_KEPT = false;
+
     /** @var Event $event */
     private $event;
     /** @var bool $canTokenBeInvalidated */

@@ -139,7 +139,7 @@ class CheckoutCompletedEventActionTest extends TestCase
      *
      * @test
      */
-    public function testExecutionWithinAGateway(?string $expectException, GatewayInterface $mockGateway, bool $canTokenBeInvalidated, object $eventObject, $tokenMock)
+    public function testExecutionWithinAGateway(string $expectException, GatewayInterface $mockGateway, bool $canTokenBeInvalidated, object $eventObject, $tokenMock)
     {
         if (!empty($expectException)) {
             $this->expectException($expectException);

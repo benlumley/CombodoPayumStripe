@@ -66,6 +66,7 @@ class ObtainTokenAction implements ActionInterface, GatewayAwareInterface, ApiAw
      */
     public function execute($request)
     {
+
         /** @var $request ObtainToken */
         RequestNotSupportedException::assertSupports($this, $request);
 
@@ -120,11 +121,11 @@ class ObtainTokenAction implements ActionInterface, GatewayAwareInterface, ApiAw
             'success_url' => $successUrl,
             'cancel_url' => $cancelUrl,
             'payment_method_types' => ['card'],
-            'submit_type' => Session::SUBMIT_TYPE_PAY,
+//            'submit_type' => Session::SUBMIT_TYPE_PAY,
             'line_items' => $model['line_items'],
-            'payment_intent_data' => [
-                'metadata' => $model['metadata'] ?? ['payment_id' => $model['id']],
-            ],
+//            'payment_intent_data' => [
+//                'metadata' => $model['metadata'] ?? ['payment_id' => $model['id']],
+//            ],
             'client_reference_id' => $request->getToken()->getHash(),
         ];
 
@@ -132,8 +133,11 @@ class ObtainTokenAction implements ActionInterface, GatewayAwareInterface, ApiAw
             $params['customer_email'] = $model['customer_email'];
         }
 
-        if (isset($model['payment_intent_data'])) {
-            $params['payment_intent_data'] = array_merge($params['payment_intent_data'], $model['payment_intent_data']);
+        if (isset($model['subscription_data'])) {
+            $params['subscription_data'] = $model['subscription_data'];
+            $params['subscription_data']['metadata'] = @$model['metadata'];
+        } elseif (isset($model['payment_intent_data'])) {
+            $params['payment_intent_data'] = @array_merge((array)$model['payment_intent_data'], (array)$model['metadata']);
         }
 
         $session = Session::create($params);

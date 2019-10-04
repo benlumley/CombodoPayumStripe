@@ -63,6 +63,7 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface
      */
     private function handleIfPaymentDone(TokenInterface $token): void
     {
+
         $getHttpRequest = new GetHttpRequest();
         $this->gateway->execute($getHttpRequest);
         if (isset($getHttpRequest->query['checkout_status'])) {
@@ -83,9 +84,11 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface
 
         $eventsIterator = $fullfilledPayements->getEvents()->autoPagingIterator();
         foreach ($eventsIterator as $event) {
+
             if (!isset($event->data->object->client_reference_id) || $token->getHash() != $event->data->object->client_reference_id) {
                 continue;
             }
+
             try {
                 $request = new handleCheckoutCompletedEvent($event, handleCheckoutCompletedEvent::TOKEN_CAN_BE_INVALIDATED);
                 $this->gateway->execute($request); //an extension must be plugged onto this in order to handle the payment logic on the website side (@see https://github.com/Combodo/CombodoPayumStripe/tree/master/doc/sylius-example)

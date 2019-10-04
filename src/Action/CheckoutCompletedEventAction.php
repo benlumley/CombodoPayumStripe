@@ -46,10 +46,12 @@ class CheckoutCompletedEventAction implements ActionInterface, GatewayAwareInter
      */
     public function execute($request)
     {
+
         RequestNotSupportedException::assertSupports($this, $request);
 
         $event = $request->getEvent();
         $this->handleEvent($event);
+
     }
 
     /**
@@ -65,7 +67,7 @@ class CheckoutCompletedEventAction implements ActionInterface, GatewayAwareInter
 
         $this->status->markCaptured();
 
-        $this->completePaymentDetails($this->status->getFirstModel(), $checkoutSession->id, $checkoutSession->payment_intent);
+        $this->completePaymentDetails($this->status->getFirstModel(), $checkoutSession->id, (string)$checkoutSession->payment_intent, (string)$checkoutSession->subscription);
     }
 
     /**
@@ -96,11 +98,12 @@ class CheckoutCompletedEventAction implements ActionInterface, GatewayAwareInter
         return $status;
     }
 
-    private function completePaymentDetails($payment, string $checkoutSessionId, string $paymentIntentId): void
+    private function completePaymentDetails($payment, string $checkoutSessionId, string $paymentIntentId = '', string $subscriptionId = ''): void
     {
         if ($payment instanceof StripePaymentDetails) {
             $payment->setCheckoutSessionId($checkoutSessionId);
             $payment->setPaymentIntentId($paymentIntentId);
+            $payment->setSubscriptionId($subscriptionId);
         } else {
             //if the Payment instance does not provide special setter, wee try to use the details, but this need extra work to be handled correctly (see the in the symfony examples)
             $details = $payment->getDetails();

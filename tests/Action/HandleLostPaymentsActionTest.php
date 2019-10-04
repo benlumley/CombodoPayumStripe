@@ -100,7 +100,7 @@ class HandleLostPaymentsActionTest extends GenericActionTest
      * @test
      * @dataProvider dataProviderArrayOfEvents
      */
-    public function shouldExecuteHandleCheckoutCompletedEventForEachEvent(?string $expectedException, $eventsList)
+    public function shouldExecuteHandleCheckoutCompletedEventForEachEvent(string $expectedException, $eventsList)
     {
         if (isset($expectedException)) {
             $this->expectException($expectedException);
