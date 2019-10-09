@@ -17,7 +17,7 @@ interface StripePaymentDetails
     /**
      * @param string $checkoutSessionId
      */
-    public function setCheckoutSessionId(string $checkoutSessionId): void;
+    public function setCheckoutSessionId(string $checkoutSessionId);
 
     /**
      * @return string
@@ -27,5 +27,5 @@ interface StripePaymentDetails
     /**
      * @param string $paymentIntentId
      */
-    public function setPaymentIntentId(string $paymentIntentId): void;
+    public function setPaymentIntentId(string $paymentIntentId);
 }
