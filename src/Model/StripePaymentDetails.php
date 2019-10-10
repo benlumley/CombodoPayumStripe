@@ -28,4 +28,6 @@ interface StripePaymentDetails
      * @param string $paymentIntentId
      */
     public function setPaymentIntentId(string $paymentIntentId);
+
 }
+
