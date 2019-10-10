@@ -24,17 +24,17 @@ class HandleLostPayments
 
     }
 
-    public function setParsedValidCounter(int $tokenNotFoundCounter): void
+    public function setParsedValidCounter(int $tokenNotFoundCounter)
     {
         $this->tokenNotFoundCounter = $tokenNotFoundCounter;
     }
 
-    public function setLostRetrievedCounter(int $tokenFoundCounter): void
+    public function setLostRetrievedCounter(int $tokenFoundCounter)
     {
         $this->tokenFoundCounter = $tokenFoundCounter;
     }
 
-    public function getMinCtime(): ?string
+    public function getMinCtime(): string
     {
         return $this->minCtime;
     }

@@ -61,7 +61,7 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface
     /**
      * once the customer has paid, he is redirected here, so first, let's check if he has effectively paid
      */
-    private function handleIfPaymentDone(TokenInterface $token): void
+    private function handleIfPaymentDone(TokenInterface $token)
     {
 
         $getHttpRequest = new GetHttpRequest();
@@ -71,7 +71,7 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface
         }
     }
 
-    private function pollFullfilledPayments(TokenInterface $token): void
+    private function pollFullfilledPayments(TokenInterface $token)
     {
         $eventsFilter = [
             'created'   => [

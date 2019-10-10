@@ -57,7 +57,7 @@ class CheckoutCompletedEventAction implements ActionInterface, GatewayAwareInter
     /**
      * @param Event $event
      */
-    private function handleEvent(Event $event): void
+    private function handleEvent(Event $event)
     {
         $checkoutSession    = $event->data->object;
         $tokenHash          = $checkoutSession->client_reference_id;
@@ -98,7 +98,7 @@ class CheckoutCompletedEventAction implements ActionInterface, GatewayAwareInter
         return $status;
     }
 
-    private function completePaymentDetails($payment, string $checkoutSessionId, string $paymentIntentId = '', string $subscriptionId = ''): void
+    private function completePaymentDetails($payment, string $checkoutSessionId, string $paymentIntentId = '', string $subscriptionId = '')
     {
         if ($payment instanceof StripePaymentDetails) {
             $payment->setCheckoutSessionId($checkoutSessionId);
@@ -113,12 +113,12 @@ class CheckoutCompletedEventAction implements ActionInterface, GatewayAwareInter
         }
     }
 
-    public function getStatus() :?GetBinaryStatus
+    public function getStatus() : GetBinaryStatus
     {
         return $this->status;
     }
 
-    public function getToken() : ?TokenInterface
+    public function getToken() : TokenInterface
     {
         return $this->token;
     }

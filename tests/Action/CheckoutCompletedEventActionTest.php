@@ -223,7 +223,7 @@ class CheckoutCompletedEventActionTest extends TestCase
      *
      * @return GatewayInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    private function createMockGateway(?TokenInterface $tokenMock)
+    private function createMockGateway(TokenInterface $tokenMock)
     {
         if (empty($tokenMock)) {
             return $this->createMockGatewayWithNullToken();
@@ -260,7 +260,7 @@ class CheckoutCompletedEventActionTest extends TestCase
      *
      * @return GatewayInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    private function createMockGatewayDefault(?TokenInterface $tokenMock)
+    private function createMockGatewayDefault(TokenInterface $tokenMock)
     {
         $mockGateway = $this->createMock(GatewayInterface::class);
         $mockGateway

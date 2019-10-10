@@ -32,7 +32,7 @@ use Stripe\Webhook;
 class NotifyUnsafeAction implements ActionInterface, ApiAwareInterface, GatewayAwareInterface
 {
     use GatewayAwareTrait;
-    
+
     use ApiAwareTrait {
         setApi as _setApi;
     }
@@ -67,7 +67,7 @@ class NotifyUnsafeAction implements ActionInterface, ApiAwareInterface, GatewayA
         $this->handleStripeEvent($event);
     }
 
-    
+
     /**
      * Accepting null models is not standard, but it is required due to the implementation of the symfony bundle's route `payum_notify_do_unsafe`
      * {@inheritDoc}
@@ -115,7 +115,7 @@ class NotifyUnsafeAction implements ActionInterface, ApiAwareInterface, GatewayA
      * @param $request
      * @param $event
      */
-    private function handleStripeEvent(Event $event): void
+    private function handleStripeEvent(Event $event)
     {
         $request = new handleCheckoutCompletedEvent($event, handleCheckoutCompletedEvent::TOKEN_MUST_BE_KEPT);
         $this->gateway->execute($request);
@@ -125,7 +125,7 @@ class NotifyUnsafeAction implements ActionInterface, ApiAwareInterface, GatewayA
      * accept only the checkout.session.completed event
      * @param Event $event
      */
-    private function checkStripeEventType(Event $event): void
+    private function checkStripeEventType(Event $event)
     {
         if ($event->type != 'checkout.session.completed') {
             throw new LogicException(

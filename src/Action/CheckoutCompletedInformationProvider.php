@@ -24,12 +24,12 @@ interface CheckoutCompletedInformationProvider
      * @see
      *
      */
-    public function getStatus(): ?GetBinaryStatus;
+    public function getStatus(): GetBinaryStatus;
 
     /**
      * @see
      * null|TokenInterface
      */
-    public function getToken(): ?TokenInterface;
+    public function getToken(): TokenInterface;
 
 }

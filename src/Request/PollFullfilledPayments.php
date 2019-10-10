@@ -41,7 +41,7 @@ class PollFullfilledPayments
         $this->events = $events;
     }
 
-    public function getEvents(): ?Collection
+    public function getEvents(): Collection
     {
         return $this->events;
     }
