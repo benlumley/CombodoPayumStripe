@@ -67,7 +67,7 @@ class CheckoutCompletedEventAction implements ActionInterface, GatewayAwareInter
 
         $this->status->markCaptured();
 
-        $this->completePaymentDetails($this->status->getFirstModel(), $checkoutSession->id, (string)$checkoutSession->payment_intent, (string)$checkoutSession->subscription);
+        $this->completePaymentDetails($this->status->getFirstModel(), $checkoutSession);
     }
 
     /**
@@ -98,19 +98,20 @@ class CheckoutCompletedEventAction implements ActionInterface, GatewayAwareInter
         return $status;
     }
 
-    private function completePaymentDetails($payment, string $checkoutSessionId, string $paymentIntentId = '', string $subscriptionId = '')
+    private function completePaymentDetails($payment, $checkoutSession)
     {
         if ($payment instanceof StripePaymentDetails) {
-            $payment->setCheckoutSessionId($checkoutSessionId);
-            $payment->setPaymentIntentId($paymentIntentId);
-            $payment->setSubscriptionId($subscriptionId);
-        } else {
-            //if the Payment instance does not provide special setter, wee try to use the details, but this need extra work to be handled correctly (see the in the symfony examples)
-            $details = $payment->getDetails();
-            $details['checkout_session_id'] = $checkoutSessionId;
-            $details['payment_intent_id']   = $paymentIntentId;
-            $payment->setDetails($details);
+            $payment->setCheckoutSessionId($checkoutSession->id);
+            $payment->setPaymentIntentId($checkoutSession->payment_intent ?? '');
+            $payment->setSubscriptionId($checkoutSession->subscription ?? '');
         }
+
+        $details                        = $payment->getDetails(true);
+        $details['checkout_session_id'] = $checkoutSession->id;
+        $details['subscription_id']     = $checkoutSession->subscription;
+        $details['payment_intent_id']   = $checkoutSession->payment_intent;
+        $details['stripe_session']      = $checkoutSession->__toArray();
+        $payment->setDetails($details);
     }
 
     public function getStatus() : GetBinaryStatus
