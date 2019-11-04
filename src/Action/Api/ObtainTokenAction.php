@@ -136,8 +136,9 @@ class ObtainTokenAction implements ActionInterface, GatewayAwareInterface, ApiAw
         if (isset($model['subscription_data'])) {
             $params['subscription_data'] = $model['subscription_data'];
             $params['subscription_data']['metadata'] = @$model['metadata'];
-        } elseif (isset($model['payment_intent_data'])) {
-            $params['payment_intent_data'] = @array_merge((array)$model['payment_intent_data'], (array)$model['metadata']);
+        } else {
+            $params['payment_intent_data'] = @(array)$model['payment_intent_data'];
+            $params['payment_intent_data']['metadata'] = @(array)$model['metadata'];
         }
 
         $session = Session::create($params);
