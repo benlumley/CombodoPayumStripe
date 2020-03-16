@@ -138,6 +138,7 @@ class ObtainTokenAction implements ActionInterface, GatewayAwareInterface, ApiAw
             $params['subscription_data']['metadata'] = @$model['metadata'];
         } else {
             $params['payment_intent_data'] = @(array)$model['payment_intent_data'];
+            $params['payment_intent_data']['description'] = $model['metadata']['product'];
             $params['payment_intent_data']['metadata'] = @(array)$model['metadata'];
         }
 
